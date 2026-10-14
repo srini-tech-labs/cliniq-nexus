@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: light; }
+html, body, #root { height: 100%; }
+body { @apply bg-page text-ink antialiased; font-feature-settings: "cv11", "ss01"; }
+*:focus-visible { outline: 2px solid #2a78d6; outline-offset: 2px; border-radius: 6px; }
+
+@layer components {
+  .card { @apply bg-surface border border-line rounded-xl2 shadow-card; }
+  .eyebrow { @apply text-[11px] font-semibold uppercase tracking-[0.08em] text-ink-3; }
+  .chip { @apply inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[11.5px] font-medium leading-5; }
+  .btn { @apply inline-flex items-center justify-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors disabled:opacity-50; }
+  .btn-primary { @apply btn bg-brand-600 text-white hover:bg-brand-700; }
+  .btn-ghost { @apply btn text-ink-2 hover:bg-sunken; }
+  .btn-outline { @apply btn border border-line bg-surface text-ink-2 hover:bg-sunken; }
+  .tab { @apply relative px-1 pb-3 pt-1 text-sm font-medium text-ink-3 hover:text-ink transition-colors; }
+  .tab-active { @apply text-ink after:absolute after:inset-x-0 after:-bottom-px after:h-0.5 after:rounded-full after:bg-brand-600; }
+  .scroll-thin { scrollbar-width: thin; scrollbar-color: #cfd6e0 transparent; }
+  .mark-hit { background: #fff1c2; box-shadow: 0 0 0 2px #fff1c2; border-radius: 3px; }
+}
+.tabular { font-variant-numeric: tabular-nums; }
+.recharts-cartesian-grid line { stroke: #e9edf2; }
+.recharts-text { fill: #77839a; font-size: 11px; }

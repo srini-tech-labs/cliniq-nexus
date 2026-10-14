@@ -1,0 +1,68 @@
+{
+  "available": true,
+  "run_at": "2026-10-14T16:36:06.680163+00:00",
+  "duration_s": 208,
+  "environment": "warehouse \u00b7 healthcare.cliniq_v5_stage",
+  "models": {
+    "generator": "databricks-gpt-oss-120b",
+    "verifier": "databricks-meta-llama-3-3-70b-instruct",
+    "embedding": "databricks-gte-large-en"
+  },
+  "counts": {
+    "total": 39,
+    "narrative": 18,
+    "unsupported": 6,
+    "policy": 9,
+    "structured": 6
+  },
+  "metrics": [
+    {
+      "name": "Patient isolation",
+      "value": "91/91",
+      "passed": true,
+      "detail": "Sources from the selected patient across 39 questions; 0 foreign or unresolvable"
+    },
+    {
+      "name": "Citations resolve",
+      "value": "35 claims",
+      "passed": true,
+      "detail": "0 unresolved citations; 14 PDF page citations, all pages exist"
+    },
+    {
+      "name": "Grounded answers accepted",
+      "value": "18/18",
+      "passed": true,
+      "detail": "Verified generations; 0 fell back to evidence-only after validation"
+    },
+    {
+      "name": "Expected facts present",
+      "value": "17/18",
+      "passed": true,
+      "detail": "Accepted answers that contain at least one key documented fact"
+    },
+    {
+      "name": "Unsupported not invented",
+      "value": "6/6",
+      "passed": true,
+      "detail": "Questions about information absent from the record"
+    },
+    {
+      "name": "Policy routing",
+      "value": "9/9",
+      "passed": true,
+      "detail": "Advice, image-interpretation and cross-patient requests"
+    },
+    {
+      "name": "Fabricated imaging findings",
+      "value": "0",
+      "passed": true,
+      "detail": "Answers using radiological finding terms across all questions"
+    },
+    {
+      "name": "Median generation latency",
+      "value": "6.2 s",
+      "passed": true,
+      "detail": "Retrieve + generate + validate + verify; errors 0"
+    }
+  ]
+}

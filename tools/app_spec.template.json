@@ -1,0 +1,12 @@
+{
+  "name": "${APP_NAME}",
+  "description": "ClinIQ Nexus v5 candidate — clinical intelligence workspace on synthetic data (not for clinical use)",
+  "resources": [
+    {"name": "sql-warehouse", "sql_warehouse": {"id": "${WAREHOUSE_ID}", "permission": "CAN_USE"}},
+    {"name": "llm-generator", "serving_endpoint": {"name": "databricks-gpt-oss-120b", "permission": "CAN_QUERY"}},
+    {"name": "llm-fallback", "serving_endpoint": {"name": "databricks-gpt-oss-20b", "permission": "CAN_QUERY"}},
+    {"name": "llm-verifier", "serving_endpoint": {"name": "databricks-meta-llama-3-3-70b-instruct", "permission": "CAN_QUERY"}},
+    {"name": "embeddings", "serving_endpoint": {"name": "databricks-gte-large-en", "permission": "CAN_QUERY"}},
+    {"name": "v5-raw-volume", "uc_securable": {"securable_type": "VOLUME", "securable_full_name": "healthcare.cliniq_v5_stage.raw", "permission": "READ_VOLUME"}}
+  ]
+}

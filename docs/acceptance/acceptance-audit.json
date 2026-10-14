@@ -1,0 +1,131 @@
+{
+  "as_of": "2026-10-09T18:00:00+00:00",
+  "results": [
+    {
+      "id": "AUD-01",
+      "area": "Identity",
+      "check": "Note headers and stated ages match the patient record",
+      "checked": 47,
+      "failures": [],
+      "status": "pass",
+      "note": ""
+    },
+    {
+      "id": "AUD-02",
+      "area": "PDF documents",
+      "check": "Every text PDF page prints the filed patient, MRN and encounter",
+      "checked": 24,
+      "failures": [],
+      "status": "pass",
+      "note": ""
+    },
+    {
+      "id": "AUD-03",
+      "area": "Imaging",
+      "check": "DICOM headers (identity, dates, accession, SYN, burned-in) match catalog and patient",
+      "checked": 10,
+      "failures": [],
+      "status": "pass",
+      "note": ""
+    },
+    {
+      "id": "AUD-04",
+      "area": "Imaging",
+      "check": "Imaging reports reference their study/accession and state no interpretation",
+      "checked": 10,
+      "failures": [],
+      "status": "pass",
+      "note": ""
+    },
+    {
+      "id": "AUD-05",
+      "area": "Encounters",
+      "check": "Encounters are finished, non-overlapping and end before the as-of date",
+      "checked": 66,
+      "failures": [],
+      "status": "pass",
+      "note": "No encounter is in progress, so no patient is currently admitted."
+    },
+    {
+      "id": "AUD-06",
+      "area": "Observations",
+      "check": "Measurements fall within their encounter (pre-visit labs allowed for telehealth reviews)",
+      "checked": 366,
+      "failures": [],
+      "status": "pass",
+      "note": "2 labs drawn up to 5 days before a telehealth review and linked to it (documented in the note)"
+    },
+    {
+      "id": "AUD-07",
+      "area": "Observations",
+      "check": "Lab flags agree with reference ranges; every value has UCUM unit and LOINC code",
+      "checked": 366,
+      "failures": [],
+      "status": "pass",
+      "note": ""
+    },
+    {
+      "id": "AUD-08",
+      "area": "Medications",
+      "check": "Orders authored within their encounter; dose-change chains and statuses consistent with dates",
+      "checked": 44,
+      "failures": [],
+      "status": "pass",
+      "note": ""
+    },
+    {
+      "id": "AUD-09",
+      "area": "PDF documents",
+      "check": "Discharge-summary medication tables match orders active at discharge",
+      "checked": 21,
+      "failures": [],
+      "status": "pass",
+      "note": ""
+    },
+    {
+      "id": "AUD-10",
+      "area": "PDF documents",
+      "check": "Every lab value of the covered encounters appears on lab reports and discharge summaries",
+      "checked": 127,
+      "failures": [],
+      "status": "pass",
+      "note": ""
+    },
+    {
+      "id": "AUD-11",
+      "area": "Care coordination",
+      "check": "Follow-up statuses are consistent with the as-of date and resolving encounters",
+      "checked": 41,
+      "failures": [],
+      "status": "pass",
+      "note": ""
+    },
+    {
+      "id": "AUD-12",
+      "area": "Care coordination",
+      "check": "Portal threads open with a patient message after the related encounter and summaries match",
+      "checked": 27,
+      "failures": [],
+      "status": "pass",
+      "note": ""
+    },
+    {
+      "id": "AUD-13",
+      "area": "Physician brief",
+      "check": "Every value stated in a brief item appears in the records it references",
+      "checked": 33,
+      "failures": [],
+      "status": "pass",
+      "note": "Brief items are deterministic summaries; none contains diagnostic or treatment language."
+    },
+    {
+      "id": "AUD-14",
+      "area": "Worklist",
+      "check": "Worklist ages (as of the record date) and last-encounter dates match source records",
+      "checked": 10,
+      "failures": [],
+      "status": "pass",
+      "note": ""
+    }
+  ]
+}

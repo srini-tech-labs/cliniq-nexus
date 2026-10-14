@@ -1,0 +1,202 @@
+{
+  "as_of": "2026-10-09T18:00:00Z",
+  "counts": {
+    "clinical_notes": 38,
+    "conditions": 44,
+    "document_index": 23,
+    "encounters": 38,
+    "follow_up_items": 41,
+    "imaging_reports": 10,
+    "imaging_studies": 10,
+    "medication_requests": 44,
+    "observations": 366,
+    "patients": 10,
+    "portal_messages": 49,
+    "portal_threads": 27
+  },
+  "dataset_version": "v5.0.0",
+  "files": {
+    "dicom/CN-IMG001-1.dcm": {
+      "bytes": 525506,
+      "sha256": "98070aa8a7e8dc20a5f4e0fdbd7c5bd45414e993a9b92a8303bb9fdaf7485374"
+    },
+    "dicom/CN-IMG001-2.dcm": {
+      "bytes": 525506,
+      "sha256": "335173c458819b16685c268555d8451592d36f9d348d39fd60f7b384a63af478"
+    },
+    "dicom/CN-IMG003-1.dcm": {
+      "bytes": 525506,
+      "sha256": "a9fc184be025082f2db69592e6bc29068c6c22538b063cdc7a359db924ee7e23"
+    },
+    "dicom/CN-IMG004-1.dcm": {
+      "bytes": 525506,
+      "sha256": "dc2c0d1c8811b98af3dddec04253ed5d60ab941b2fa8a7d710e73663dde236e8"
+    },
+    "dicom/CN-IMG005-1.dcm": {
+      "bytes": 525506,
+      "sha256": "9111ce4c5ab0c1376f85ac3a1b47a5bdc32936dfe76eea6eaa10aa99e4f48682"
+    },
+    "dicom/CN-IMG005-2.dcm": {
+      "bytes": 525506,
+      "sha256": "09462c57d84920c1afde9866166a715bdad0b67f6459085d5b2fc0316e5ad726"
+    },
+    "dicom/CN-IMG006-1.dcm": {
+      "bytes": 525506,
+      "sha256": "182c028208c5289d5bb093589799aa5864868380ab55e46cbe20f2343d46e83a"
+    },
+    "dicom/CN-IMG006-2.dcm": {
+      "bytes": 525506,
+      "sha256": "9dab33e76272fce181db1f3ea4fdd4f77f99512ceee2083ef9ad6a9e57fd5755"
+    },
+    "dicom/CN-IMG007-1.dcm": {
+      "bytes": 525498,
+      "sha256": "e7e28ef4eefe263abafea3c12b483137154cc6068be2cdfea80b7264a9856b29"
+    },
+    "dicom/CN-IMG008-1.dcm": {
+      "bytes": 525506,
+      "sha256": "204268cf12934b675846ea311d53aa87b64dc3754070de3a2b09a7d579a7a8d3"
+    },
+    "documents/CN-D001-1.pdf": {
+      "bytes": 48374,
+      "sha256": "ab017b41e73f0fa023db33e2474d3783695f22a833f2bb439554099d3db52834"
+    },
+    "documents/CN-D001-2.pdf": {
+      "bytes": 45824,
+      "sha256": "b1ec7e3e2163ad9a75712e3c1cf63b05bb91cfd7fa25110d20f42ccade461c3f"
+    },
+    "documents/CN-D002-1.pdf": {
+      "bytes": 44946,
+      "sha256": "e8368937d3cebe7d44a691cebdee1aa62666b2041a2260ddc07d640ba0725ca3"
+    },
+    "documents/CN-D002-2.pdf": {
+      "bytes": 45367,
+      "sha256": "143ec6067351d380ae953880369cda2ee9d6a92b812118b2bc2a7a388c1287af"
+    },
+    "documents/CN-D003-1.pdf": {
+      "bytes": 48068,
+      "sha256": "ff41deb2e1e41e1309ff9fa484b32393a7d82d2f562c1192d025ead98ea25b0e"
+    },
+    "documents/CN-D003-2.pdf": {
+      "bytes": 649205,
+      "sha256": "92ac723cdf1b3f025f5f768395b730f28beee961c1a5650577b2fcd3ec64583e"
+    },
+    "documents/CN-D003-3.pdf": {
+      "bytes": 44677,
+      "sha256": "915ccb058a007097ee34ec15d5ddc5111ced7059b0d6b46fd43ba45810fcc1f6"
+    },
+    "documents/CN-D004-1.pdf": {
+      "bytes": 44818,
+      "sha256": "3ecfea11db4e67bfe77b6f0f45bab2ba3a249764ac28caa76597b6e3c24ce321"
+    },
+    "documents/CN-D005-1.pdf": {
+      "bytes": 44666,
+      "sha256": "c077cb9f51483dae91c43b7cefb343dd37d19e3649d6710629605c80173a125a"
+    },
+    "documents/CN-D005-2.pdf": {
+      "bytes": 47554,
+      "sha256": "276c1a3817e458484bc68c1e80d1b54ef5c69377ad3f17482dde02041ac63e4b"
+    },
+    "documents/CN-D005-3.pdf": {
+      "bytes": 44657,
+      "sha256": "57e914cd64c139cb4f404a5042afabb03ac58c59e932e099ccbf2c36e12da89c"
+    },
+    "documents/CN-D006-1.pdf": {
+      "bytes": 44908,
+      "sha256": "daca042240c5e32b6dcc00118c399b168c5b06639d9aabd895af308d4cfab96f"
+    },
+    "documents/CN-D006-2.pdf": {
+      "bytes": 44648,
+      "sha256": "bb14445b05d7b5df30742730830a3665fc9c422cacd4150b456f903348790b7a"
+    },
+    "documents/CN-D007-1.pdf": {
+      "bytes": 44809,
+      "sha256": "fe3bcf49ffa79c5c44877eea838ef608a3f2b3a97905c250641bbe085341b227"
+    },
+    "documents/CN-D007-2.pdf": {
+      "bytes": 45260,
+      "sha256": "ea868801d8bcdf53e0353ced1b9e764b56c274805f65e164e404d3c6fb859f74"
+    },
+    "documents/CN-D008-1.pdf": {
+      "bytes": 47730,
+      "sha256": "646685add6e928c950c15fd7c94326f579803c7d7f7ed9ff1b885dfcba97946b"
+    },
+    "documents/CN-D008-2.pdf": {
+      "bytes": 44980,
+      "sha256": "1bda688464db8af20805018e6b1ead8cf4f9bf460a165df517e21b1cb895dde9"
+    },
+    "documents/CN-D008-3.pdf": {
+      "bytes": 45262,
+      "sha256": "80dd836550f80bdc2b7e2d78b2cf57e892a65d3c1b64ddab7cc467de5bd8eee9"
+    },
+    "documents/CN-D009-1.pdf": {
+      "bytes": 334654,
+      "sha256": "37b0dd75ce9983ecaf5966b667fff214a61c0e0855f086583294a070df59d906"
+    },
+    "documents/CN-D009-2.pdf": {
+      "bytes": 44809,
+      "sha256": "07fc4e00a3501b59e989520913b29a23c2d6e4feef3bf6d6aeddea40d0c84ac5"
+    },
+    "documents/CN-D010-1.pdf": {
+      "bytes": 45337,
+      "sha256": "1397686f99d9285352757ca8fab357d0e3e43791704d2f75aedb846e986881ce"
+    },
+    "documents/CN-D010-2.pdf": {
+      "bytes": 45427,
+      "sha256": "947f6aaa2130a427c93dcf9058583c74d2f3ed3082c6820cb63dd114c9a9698b"
+    },
+    "documents/CN-D010-3.pdf": {
+      "bytes": 45522,
+      "sha256": "fcfe1934fd7f2cd431ade4f6e622fdaf0faed36872ddf76835d922f5318c9756"
+    },
+    "fhir/clinical_notes.ndjson": {
+      "bytes": 57957,
+      "sha256": "d23d2ded7e94c3dd5ac0e3cf667bf034b8866e6a6e89cfafce93b0c1b35d6fee"
+    },
+    "fhir/conditions.ndjson": {
+      "bytes": 13507,
+      "sha256": "930b7178a065a4501e5b7bb5696d42d84fd6e7a8894d25b4ce0f15c75c9926db"
+    },
+    "fhir/document_index.ndjson": {
+      "bytes": 10317,
+      "sha256": "19fd83c456e503f2e6c83209a1f6a4ef1d0bcf06e450cca35fe62c32ef700de2"
+    },
+    "fhir/encounters.ndjson": {
+      "bytes": 19430,
+      "sha256": "f01356abc94eaffec33922af5e290e7d0e63d3af1c10058993b351685f59fa28"
+    },
+    "fhir/follow_up_items.ndjson": {
+      "bytes": 11520,
+      "sha256": "22a2deea4b4f2d095c8399057665a2efa5ca034ddceb5c17688e671283447793"
+    },
+    "fhir/imaging_reports.ndjson": {
+      "bytes": 9565,
+      "sha256": "15c06389ffa6f773e131c2627267407327eb6cf1f9eed2bcf336fda7d6ab20fb"
+    },
+    "fhir/imaging_studies.ndjson": {
+      "bytes": 7607,
+      "sha256": "7083c48af097e2621b3d8c9189016d71acb25851141229e92ea0256dfb6c8d42"
+    },
+    "fhir/medication_requests.ndjson": {
+      "bytes": 21807,
+      "sha256": "10ca172296d84f98289baa2c213474ff576225512909940ede6f453c5e538273"
+    },
+    "fhir/observations.ndjson": {
+      "bytes": 148027,
+      "sha256": "30532f605f9a2c15ab84712089f8fb9f387ad1db2c51c34876d16aa6104e61ed"
+    },
+    "fhir/patients.ndjson": {
+      "bytes": 4600,
+      "sha256": "14f884a0095730d33c516b5725bbd93e3343758f93f076fed04ee77ded7cd00d"
+    },
+    "fhir/portal_messages.ndjson": {
+      "bytes": 22102,
+      "sha256": "3164a3957c92779ec705f0bbe943f262bf3ca6950039cc167db7ba8cd9702b7e"
+    },
+    "fhir/portal_threads.ndjson": {
+      "bytes": 10322,
+      "sha256": "eb63b003ece3a621df377823815432971c793049ca7c3afe582604289a4fb0de"
+    }
+  },
+  "generator": "datagen/generate.py",
+  "synthetic": true
+}

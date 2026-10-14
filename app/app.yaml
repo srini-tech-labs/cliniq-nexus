@@ -1,0 +1,21 @@
+# Databricks Apps manifest — ClinIQ Nexus v5 candidate (cliniq-nexus-next)
+command: ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1"]
+env:
+  - name: DATABRICKS_WAREHOUSE_ID
+    valueFrom: sql-warehouse
+  - name: CLINIQ_DATA_MODE
+    value: "warehouse"
+  - name: CLINIQ_FILES_MODE
+    value: "volume"
+  - name: CLINIQ_SCHEMA
+    value: "healthcare.cliniq_v5_stage"
+  - name: CLINIQ_LLM_MODEL
+    value: "databricks-gpt-oss-120b"
+  - name: CLINIQ_LLM_FALLBACK_MODEL
+    value: "databricks-gpt-oss-20b"
+  - name: CLINIQ_VERIFIER_MODEL
+    value: "databricks-meta-llama-3-3-70b-instruct"
+  - name: CLINIQ_EMBED_MODEL
+    value: "databricks-gte-large-en"
+  - name: CLINIQ_AI_ENABLED
+    value: "true"

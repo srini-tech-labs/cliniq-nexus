@@ -1,0 +1,10 @@
+# Local development, data generation, pipeline, tests, evaluation and screenshots
+-r app/requirements.txt
+reportlab==4.2.5
+pypdf==5.1.0
+pytest==9.1.1
+httpx==0.28.1
+playwright==1.49.1
+pypdfium2==5.14.0
+imageio-ffmpeg==0.6.0
+av==19.0.1

@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+
+# Node / frontend build output
+node_modules/
+app/frontend/dist/
+*.tsbuildinfo
+
+# Local build and environment files
+build/
+.env
+.env.*
+*.log
+.DS_Store
+tools/app_spec.json
+
+# Local-only material kept outside the public repository:
+# backups of the previous application and its configuration (contain account identifiers)
+legacy/
+# downloaded copies of the previous release's DICOM files
+data/source_dicom/
+# private planning notes (e.g. website integration)
+planning/

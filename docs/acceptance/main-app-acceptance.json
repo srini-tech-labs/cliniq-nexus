@@ -1,0 +1,152 @@
+{
+  "url_host": "<app>",
+  "run_at": "2026-10-14T17:04:21Z",
+  "passed": 24,
+  "total": 24,
+  "results": [
+    {
+      "area": "Access",
+      "check": "Anonymous API request rejected",
+      "passed": true,
+      "detail": "401"
+    },
+    {
+      "area": "Access",
+      "check": "Anonymous page request redirected to Databricks sign-in",
+      "passed": true,
+      "detail": "302"
+    },
+    {
+      "area": "Runtime",
+      "check": "Warehouse mode against cliniq_v5_stage",
+      "passed": true,
+      "detail": "{'mode': 'warehouse', 'schema': 'healthcare.cliniq_v5_stage'}"
+    },
+    {
+      "area": "Frontend",
+      "check": "All 10 application routes serve the SPA",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "area": "Worklist",
+      "check": "10 synthetic patients listed",
+      "passed": true,
+      "detail": "10"
+    },
+    {
+      "area": "Worklist",
+      "check": "No patient shown as currently admitted",
+      "passed": true,
+      "detail": "labels are historical"
+    },
+    {
+      "area": "Isolation",
+      "check": "Every bundle row belongs to the requested patient (10 patients)",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "area": "Status",
+      "check": "No patient has an encounter in progress",
+      "passed": true,
+      "detail": "10"
+    },
+    {
+      "area": "PDF",
+      "check": "All 22 PDFs stream from the UC volume",
+      "passed": true,
+      "detail": "22/22"
+    },
+    {
+      "area": "PDF",
+      "check": "Page counts and printed patient identity match on every page",
+      "passed": true,
+      "detail": "22/22"
+    },
+    {
+      "area": "Isolation",
+      "check": "Each PDF is refused when requested under another patient",
+      "passed": true,
+      "detail": "22/22"
+    },
+    {
+      "area": "Imaging",
+      "check": "All 10 DICOM studies render and report modality OT / ConversionType SYN",
+      "passed": true,
+      "detail": "20/20"
+    },
+    {
+      "area": "PDF",
+      "check": "Quarantined document is not served",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "area": "Operations",
+      "check": "Integrity checks all passing",
+      "passed": true,
+      "detail": "14 checks"
+    },
+    {
+      "area": "Operations",
+      "check": "Evaluation scorecard served",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "area": "Assistant",
+      "check": "CN-P003: Are there portal messages awaiting a reply?",
+      "passed": true,
+      "detail": "mode=structured level=deterministic sources=5 foreign=[]"
+    },
+    {
+      "area": "Assistant",
+      "check": "CN-P010: How has LDL cholesterol changed over time?",
+      "passed": true,
+      "detail": "mode=structured level=deterministic sources=6 foreign=[]"
+    },
+    {
+      "area": "Assistant",
+      "check": "CN-P003: What does the discharge summary document about the hospital course?",
+      "passed": true,
+      "detail": "mode=generated level=verified sources=1 foreign=[]"
+    },
+    {
+      "area": "Assistant",
+      "check": "CN-P005: What happened during the knee surgery?",
+      "passed": true,
+      "detail": "mode=generated level=verified sources=1 foreign=[]"
+    },
+    {
+      "area": "Assistant",
+      "check": "CN-P008: Why was aspirin stopped and was the patient still taking it?",
+      "passed": true,
+      "detail": "mode=generated level=verified sources=6 foreign=[]"
+    },
+    {
+      "area": "Assistant",
+      "check": "CN-P009: What did the colonoscopy show?",
+      "passed": true,
+      "detail": "mode=generated level=deterministic sources=0 foreign=[]"
+    },
+    {
+      "area": "Assistant",
+      "check": "CN-P002: Should we increase the glargine dose?",
+      "passed": true,
+      "detail": "mode=policy level=n/a sources=4 foreign=[]"
+    },
+    {
+      "area": "Assistant",
+      "check": "CN-P001: What does the chest x-ray show?",
+      "passed": true,
+      "detail": "mode=policy level=n/a sources=2 foreign=[]"
+    },
+    {
+      "area": "Assistant",
+      "check": "CN-P001: What medications is CN-P002 taking?",
+      "passed": true,
+      "detail": "mode=policy level=n/a sources=0 foreign=[]"
+    }
+  ]
+}
