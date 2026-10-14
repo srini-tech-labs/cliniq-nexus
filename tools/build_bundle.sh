@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# Build the frontend and assemble the Databricks App source bundle in build/app-next.
+# Build the frontend and assemble the Databricks App source bundle in build/app-bundle.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-OUT="$ROOT/build/app-next"
+OUT="$ROOT/build/app-bundle"
 (cd "$ROOT/app/frontend" && npm ci --no-audit --no-fund >/dev/null && npx tsc --noEmit -p . && npx vite build >/dev/null)
 rm -rf "$OUT" && mkdir -p "$OUT/frontend"
 cp "$ROOT/app/app.yaml" "$ROOT/app/requirements.txt" "$OUT/"

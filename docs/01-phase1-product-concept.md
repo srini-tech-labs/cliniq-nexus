@@ -1,12 +1,14 @@
 # ClinIQ Nexus — Phase 1: Discovery & Product Concept
 
-**Status:** Approved 2026-10-14 (D1-A, D2, D3, D4, plus D5: PDF clinical document intelligence) and implemented — see the architecture, testing and deployment documents · **Scope:** Synthetic demonstration only — not clinical decision support
+**Status:** Approved 2026-10-14 (D1-A, D2, D3, D4, plus D5: PDF clinical document intelligence) and implemented — see the architecture, testing and deployment documents. **This is the historical Phase 1 plan:** references to the candidate app `cliniq-nexus-next` and the folder `app-next` describe the validation approach before promotion. Both have since been deleted; for the current state see `03-deployment-and-rollback.md` · **Scope:** Synthetic demonstration only — not clinical decision support
 
 ---
 
 ## 1. Discovery findings (verified against the live workspace)
 
 ### 1.1 Infrastructure
+
+> *Historical snapshot at discovery time (before implementation).*
 
 | Resource | Finding | Implication |
 |---|---|---|
@@ -240,6 +242,8 @@ Browser ──SSO (Databricks Apps proxy)──► Databricks App (Python, uvico
 
 ## 11. Implementation plan and gates
 
+> **Historical planning (Phase 1, before implementation).** The candidate app `cliniq-nexus-next` and the folder `app-next` described here were used for validation, then deleted after v5 was promoted to `cliniq-nexus`. Current state: `03-deployment-and-rollback.md`.
+
 | Phase | Output | Gate |
 |---|---|---|
 | **1 — Discovery & concept** (this document) | Findings, product definition, IA, journeys, stack | **Approval: D1–D4** |
@@ -255,6 +259,8 @@ Browser ──SSO (Databricks Apps proxy)──► Databricks App (Python, uvico
 ---
 
 ## 12. Decisions needed
+
+> **Historical planning (Phase 1, before implementation).** The candidate app `cliniq-nexus-next` and the folder `app-next` described here were used for validation, then deleted after v5 was promoted to `cliniq-nexus`. Current state: `03-deployment-and-rollback.md`.
 
 **D1 — Clinical content (most consequential)**
 - **A (recommended).** Generate a richer *synthetic* v5 dataset into a **new** schema `healthcare.cliniq_v5_stage` with the same 10 patients and IDs. It would add realistic fictional medication orders (drug, dose, frequency, start/stop/change), scenario-consistent conditions, diastolic BP and scenario-relevant labs (e.g. HbA1c and glucose for the diabetes patient, creatinine for the medication-reconciliation patient), 5–8 points for trend-focused patients, varied note sections (reason / findings / plan / follow-up), varied portal threads including some still awaiting reply, and discharge summaries. All content stays clearly labelled synthetic, and existing schemas stay untouched. *Cost:* serverless notebook run, $0. *Requires:* CREATE SCHEMA in `healthcare` (a write, but to a new schema only) plus a SELECT grant to the app SP.

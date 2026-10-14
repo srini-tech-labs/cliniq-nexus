@@ -11,7 +11,7 @@
 
 # COMMAND ----------
 
-# MAGIC %pip install pypdf==5.1.0 pydicom==3.0.1 --quiet
+# MAGIC %pip install pypdf==6.19.0 pydicom==3.0.2 --quiet
 
 # COMMAND ----------
 

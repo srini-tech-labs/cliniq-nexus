@@ -1,6 +1,6 @@
 {
   "name": "${APP_NAME}",
-  "description": "ClinIQ Nexus v5 candidate — clinical intelligence workspace on synthetic data (not for clinical use)",
+  "description": "ClinIQ Nexus v5 — clinical intelligence workspace on synthetic data (not for clinical use)",
   "resources": [
     {"name": "sql-warehouse", "sql_warehouse": {"id": "${WAREHOUSE_ID}", "permission": "CAN_USE"}},
     {"name": "llm-generator", "serving_endpoint": {"name": "databricks-gpt-oss-120b", "permission": "CAN_QUERY"}},

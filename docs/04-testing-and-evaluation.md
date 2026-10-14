@@ -122,7 +122,7 @@ See `docs/acceptance/security-audit.md`. It covers:
 
 - secret scanning of the working tree and git history;
 - static analysis (`bandit`);
-- dependency audits (`pip-audit`, `npm audit`);
+- dependency audits (`pip-audit`; `npm audit --omit=dev` for runtime packages, with build-tool findings listed separately);
 - PHI and synthetic-data review.
 
 ## Known gaps

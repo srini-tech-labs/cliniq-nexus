@@ -54,7 +54,7 @@ Three subtle issues found in review were fixed (a gendered pronoun, a complaint 
 |---|---|
 | Startup and runtime | The app starts; background warm-up pre-loads all ten patients; the first query after an idle warehouse takes 5–15 s. |
 | Service-principal permissions | Least privilege: `USE CATALOG`; `USE SCHEMA` + `SELECT` on `cliniq_v5_stage`; `READ VOLUME` on its raw volume; `CAN_USE` on the warehouse; `CAN_QUERY` on four model endpoints. No write access. |
-| SQL warehouse connectivity | Verified on both apps (warehouse mode, v5 schema). |
+| SQL warehouse connectivity | Verified on the primary app and, before its retirement, the candidate app (warehouse mode, v5 schema). |
 | Foundation-model quota handling | Paced embedding batches; 20 s SDK retry cap; validated fallback-model retry; lexical and evidence-only degradation. |
 | PDF and DICOM access | 22/22 PDFs and 10/10 studies served from the UC volume; cross-patient and quarantined requests refused. |
 | Configuration and credentials | All configuration via `app.yaml` and app resources; credentials injected by Databricks Apps; none in the repository. |
@@ -65,5 +65,5 @@ Three subtle issues found in review were fixed (a gendered pronoun, a complaint 
 
 - **Promotion:** v5 deployed to `cliniq-nexus` from the release folder `app-v5`. HTTP acceptance passed **24/24** on the primary app.
 - **Rollback rehearsal:** v4 redeployed to `cliniq-nexus` and rendered its dashboard with data, then v5 was restored and re-accepted at 24/24.
-- **Candidate:** `cliniq-nexus-next` is retained with the identical build.
+- **Candidate:** `cliniq-nexus-next`, used for side-by-side validation, was retired after promotion; the app, its `app-next` folder and its grants were deleted. The folders `app` (v4 rollback source), `app-v5` and `v5_pipeline` remain.
 - **Procedure:** see `../03-deployment-and-rollback.md`.

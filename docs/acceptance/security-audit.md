@@ -1,6 +1,6 @@
 # Security and publication audit
 
-Run on 14 Oct 2026 against the repository contents prepared for publication.
+Run on 14 Oct 2026 against the repository contents prepared for publication, and re-run on 14 Oct 2026 for the follow-up commit that upgrades pypdf and corrects post-promotion state (sections 4 and 6).
 
 ## 1. Secrets and sensitive configuration
 
@@ -63,6 +63,7 @@ The scan found no SSN-like numbers, phone numbers or email addresses in the data
 | B608: SQL built with an f-string (`datasource.py`) | False positive. The table identifier comes only from the constant `ALLOWED_TABLES` allowlist and is validated before use; patient IDs are bound parameters (`:pid`) and are also regex-validated. Annotated `# nosec B608` with that justification. |
 | B110: `try/except/pass` when closing a broken SQL connection | Intentional; the connection is discarded. |
 | B404/B603/B607: `subprocess` in `tools/` | Developer tooling only: fixed `databricks auth token` calls with no user input. Not part of the deployed app. |
+| B101: `assert` in `tools/smoke_test.py` | Developer smoke test; the assertion is the test check itself. Not part of the deployed app. |
 | B311: `random` in `datagen/pdfs.py` | Used only for visual noise in synthetic scanned faxes; not security-relevant. |
 
 ## 4. Dependency audit
@@ -70,13 +71,30 @@ The scan found no SSN-like numbers, phone numbers or email addresses in the data
 | Ecosystem | Before | Action | After |
 |---|---|---|---|
 | Python (`pip-audit`) | starlette 0.41.3 (via FastAPI 0.115.6): multiple advisories; pydicom 3.0.1: 1 advisory | Upgraded to FastAPI 0.143.1 (starlette 1.8.0) and pydicom 3.0.2 | 1 remaining: oauthlib 3.3.1 (see below) |
-| npm (`npm audit --omit=dev`) | react-router-dom 6.28: 3 high, then 2 moderate on 6.30.6 | Upgraded to react-router-dom 7.18.4 (same component API); all routes and navigation re-tested on the deployed app | **0 vulnerabilities** |
+| Python, development and ingestion tooling (`pip-audit -r requirements-dev.txt`) | pypdf 5.1.0: 49 advisories (fixed in 6.7.1 to 6.19.0) | Upgraded to pypdf 6.19.0 in `requirements-dev.txt` and in the ingestion notebook's `%pip` line (with pydicom 3.0.2, matching the app). pypdf is used only by the local pipeline, the ingestion notebook and the consistency audit; the deployed app does not install or import it | 1 remaining: the same oauthlib 3.3.1 residual |
+| npm, runtime packages (`npm audit --omit=dev`) | react-router-dom 6.28: 3 high, then 2 moderate on 6.30.6 | Upgraded to react-router-dom 7.18.4 (same component API); all routes and navigation re-tested on the deployed app | **0 runtime vulnerabilities** |
+| npm, including build/dev tooling (`npm audit`) | — | Not changed (see below) | 10 findings (7 high, 3 moderate), all in build/dev tooling |
 
 **Accepted residual: oauthlib 3.3.1 (PYSEC-2026-4114).**
 
 - The advisory is a timing side-channel in *server-side* PKCE verification for OAuth authorization servers.
 - ClinIQ Nexus never acts as an OAuth server. oauthlib arrives only as a client-side dependency of `databricks-sql-connector`, and the connector's latest release (4.6.0) requires `oauthlib<4`.
 - Re-assess when the connector allows oauthlib 4.
+
+**pypdf 6.19.0 and the committed data.** The committed processed data and the deployed Delta tables were produced with pypdf 5.1.0. Re-running `pipeline/cliniq_pipeline.py` with 6.19.0 changes only whitespace in the extracted text (24 of 27 pages gain leading spaces on some lines). After whitespace normalisation the text is identical, and all 166 tests and the 14 consistency checks pass with 6.19.0. The data has not been regenerated or redeployed; the next ingestion run will pick up the new extractor.
+
+**Build/dev-only npm findings (not shipped).** The full `npm audit`, including development dependencies, reports 10 findings. None of these packages is present in the deployed app, which serves only the prebuilt static bundle in `frontend/dist`:
+
+| Package | Severity | Path | Available fix |
+|---|---|---|---|
+| tailwindcss 3.4.16 | high | direct (CSS build) | 4.3.3 only (major) |
+| braces, chokidar, fast-glob, micromatch | high | via tailwindcss 3 | via tailwindcss 4 (major) |
+| postcss-nested, postcss-selector-parser | moderate | via tailwindcss 3 | via tailwindcss 4 (major) |
+| postcss 8.4.49 | high | direct (CSS build) | 8.5.30 (non-major) |
+| vite 5.4.11 | high | direct (dev server and bundler) | 5.4.21 (non-major) |
+| esbuild | moderate | via vite (dev server) | via vite 5.4.21 |
+
+A Tailwind 4 migration is a breaking change to the CSS build and has deliberately **not** been made without owner approval. The vite dev server is used only on a developer's machine and is never exposed by the deployed app.
 
 After the upgrades: 166 offline tests pass, the main app passes 24/24 HTTP acceptance checks, and in-app navigation was re-tested.
 
@@ -93,5 +111,5 @@ After the upgrades: 166 offline tests pass, the main app passes 24/24 HTTP accep
 
 - **Identity:** every commit's author and committer is `srini-venkataraman <332990115+srini-venkataraman@users.noreply.github.com>`.
 - **Attribution:** no AI co-author trailers, generated-by markers or assistant attribution in commit messages or files (scanned).
-- **Clean history:** the history was prepared locally and never pushed. It is a single commit, with superseded local commits and objects pruned (`git fsck` reports no unreachable objects). Files excluded by `.gitignore` (`legacy/`, `data/source_dicom/`, `planning/`, build output) are verified ignored and absent from the commit.
-- **Final verification from a fresh clone of the release commit:** 185 files (31.2 MB), 166 tests pass, consistency audit 14/14, frontend build succeeds, `npm audit` reports 0, and `pip-audit` shows the single documented oauthlib residual.
+- **Clean history:** the initial history was prepared locally as a single commit, with superseded local commits and objects pruned (`git fsck` reported no unreachable objects) before it was published. Later changes are new commits on top; the published commit is never amended or rewritten. Files excluded by `.gitignore` (`legacy/`, `data/source_dicom/`, `planning/`, build output) are verified ignored and absent from the commit.
+- **Verification of the follow-up commit:** 187 tracked files, 166 tests pass, consistency audit 14/14, frontend type-check and production build succeed, `npm audit --omit=dev` reports 0 runtime vulnerabilities (the full audit's 10 build/dev-only findings are listed in section 4), and `pip-audit` (app and development requirements) shows only the documented oauthlib residual.

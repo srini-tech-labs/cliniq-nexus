@@ -1,4 +1,4 @@
-# Databricks Apps manifest — ClinIQ Nexus v5 candidate (cliniq-nexus-next)
+# Databricks Apps manifest — ClinIQ Nexus v5 (primary app cliniq-nexus, source folder app-v5)
 command: ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1"]
 env:
   - name: DATABRICKS_WAREHOUSE_ID

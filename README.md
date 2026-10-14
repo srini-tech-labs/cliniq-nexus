@@ -131,7 +131,7 @@ Notes, PDFs and imaging reports are generated *from* the structured facts, so va
 | Cross-source clinical consistency audit | **14/14**: identities and ages, chronology, labs and units, medication chains, PDF tables, DICOM headers, brief values |
 | Live AI evaluation (39 questions, Unity Catalog + Foundation Model APIs) | Isolation **91/91** · unresolved citations **0** · verified narrative answers **18/18** · unsupported questions "not documented" **6/6** · policy routing **9/9** · imaging findings **0** · median **6.2 s** |
 | End-to-end acceptance on the deployed app | **24/24** |
-| Security | Secret scan clean · `bandit` reviewed · `npm audit` 0 · `pip-audit` 1 non-applicable residual (documented) |
+| Security | Secret scan clean · `bandit` reviewed · `npm audit --omit=dev` 0 runtime vulnerabilities (build-tool findings documented) · `pip-audit` 1 non-applicable residual (documented) |
 
 Details: [docs/04-testing-and-evaluation.md](docs/04-testing-and-evaluation.md) · [docs/acceptance/](docs/acceptance/).
 
@@ -144,7 +144,8 @@ python -m venv .venv && .venv/bin/pip install -r requirements-dev.txt
 (cd app/frontend && npm ci && npm run build)
 .venv/bin/python datagen/generate.py && .venv/bin/python pipeline/cliniq_pipeline.py   # synthetic data + local tables
 .venv/bin/python -m pytest -q tests
-tools/deploy.sh --profile <databricks-cli-profile> --warehouse <warehouse-id>        # candidate app
+tools/deploy.sh --profile <databricks-cli-profile> --warehouse <warehouse-id> \
+  --app <app-name> --path "<workspace-folder>"   # explicit target; add --create for a new app
 ```
 
 Databricks Apps require workspace sign-in, so the app is not publicly accessible. For public audiences, use the screenshots and the recorded walkthrough in [docs/portfolio/](docs/portfolio/). The full procedure, permissions, quota handling and rollback are in [docs/03-deployment-and-rollback.md](docs/03-deployment-and-rollback.md).

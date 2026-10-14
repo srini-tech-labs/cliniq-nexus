@@ -5,14 +5,16 @@
 | App | Serves | Source folder (workspace) | Data | Status |
 |---|---|---|---|---|
 | `cliniq-nexus` (primary) | **v5** | `/Workspace/Healthcare AI Agents/ClinIQ Nexus/app-v5` | `cliniq_v5_stage` | Promoted and validated: HTTP acceptance 24/24 |
-| `cliniq-nexus-next` (candidate) | v5 (same build) | `/Workspace/Healthcare AI Agents/ClinIQ Nexus/app-next` | `cliniq_v5_stage` | Retained for side-by-side validation; can be stopped or deleted later to free the app slot |
+| `cliniq-nexus-next` (former candidate) | — | `app-next` (deleted) | — | **Retired after promotion:** the candidate app, its workspace folder and its read-only grants were deleted |
 | v4 rollback source | v4 Streamlit | `/Workspace/Healthcare AI Agents/ClinIQ Nexus/app` (unmodified) | `cliniq_v4_stage`, `cliniq_gold`, `cliniq_bronze` | **Rollback rehearsed**: deployed to the primary app, rendered its dashboard with data, then rolled forward to v5 |
 
 No existing schema, table, volume or notebook was modified or deleted. v5 adds:
 
 - the schema `healthcare.cliniq_v5_stage`, which contains the volume `raw`;
-- the workspace folders `app-next`, `app-v5` and `v5_pipeline`;
-- the app `cliniq-nexus-next`.
+- the workspace folders `app-v5` (v5 release source) and `v5_pipeline` (ingestion notebook);
+- v5 resources on the primary app `cliniq-nexus`, alongside its retained v4 resources.
+
+The workspace folder `app` (v4 rollback source) is unchanged. The candidate app `cliniq-nexus-next` and its folder `app-next`, used only for validation before promotion, have been deleted.
 
 ## Access model (important for portfolio use)
 
@@ -75,17 +77,19 @@ databricks -p <profile> jobs submit --json '{"run_name":"cliniq-v5-ingestion","t
 ## 2. Deploy
 
 ```bash
-# candidate (creates the app on first run)
-tools/deploy.sh --profile <profile> --warehouse <warehouse-id>
 # primary app, from the dedicated release folder
 tools/deploy.sh --profile <profile> --warehouse <warehouse-id> --app cliniq-nexus --path "<folder>/app-v5"
+# a new app (for example a fresh validation copy) must be requested explicitly
+tools/deploy.sh --profile <profile> --warehouse <warehouse-id> --app <new-app> --path "<folder>/<new-folder>" --create
 ```
+
+`--app` and `--path` are required; there is no default target. A missing app is an error unless `--create` is passed.
 
 The script:
 
 1. Builds the frontend.
 2. Uploads the bundle.
-3. Creates the app if it's missing, with the resources in `tools/app_spec.template.json`.
+3. Creates the app only when `--create` is given and the app is missing, with the resources in `tools/app_spec.template.json`.
 4. Grants read-only access on the v5 schema.
 5. Deploys.
 6. Runs `tools/smoke_test.py`.
@@ -127,7 +131,7 @@ python tools/acceptance_http.py https://<cliniq-nexus-url> <profile>
 
 | Resource | Usage | Incremental paid cost |
 |---|---|---|
-| Apps | `cliniq-nexus` (existing) + `cliniq-nexus-next` (candidate) | $0 (Free Edition app slots) |
+| Apps | `cliniq-nexus` (existing app, now serving v5); the temporary candidate app has been deleted | $0 (Free Edition app slot) |
 | SQL warehouse | Existing 2X-Small serverless warehouse; parameterized reads; 15-minute in-app cache | $0 |
 | Serverless jobs | One ingestion run of about 3 minutes per data refresh | $0 |
 | Foundation Model APIs | Pay-per-token endpoints within Free Edition quota; model calls only for narrative questions | $0 |

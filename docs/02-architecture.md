@@ -2,7 +2,7 @@
 
 ClinIQ Nexus runs entirely inside a Databricks Free Edition workspace and adds no paid infrastructure. This document separates three things:
 
-- **Implemented v5 system:** running as the primary app `cliniq-nexus`, with an identical candidate deployment `cliniq-nexus-next`.
+- **Implemented v5 system:** running as the primary app `cliniq-nexus` from the workspace folder `app-v5`. The candidate app used for side-by-side validation has been retired.
 - **v4 implementation:** retained as a tested rollback source.
 - **Proposed future work:** not implemented.
 
