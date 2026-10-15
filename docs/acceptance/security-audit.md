@@ -73,7 +73,7 @@ The scan found no SSN-like numbers, phone numbers or email addresses in the data
 | Python (`pip-audit`) | starlette 0.41.3 (via FastAPI 0.115.6): multiple advisories; pydicom 3.0.1: 1 advisory | Upgraded to FastAPI 0.143.1 (starlette 1.8.0) and pydicom 3.0.2 | 1 remaining: oauthlib 3.3.1 (see below) |
 | Python, development and ingestion tooling (`pip-audit -r requirements-dev.txt`) | pypdf 5.1.0: 49 advisories (fixed in 6.7.1 to 6.19.0) | Upgraded to pypdf 6.19.0 in `requirements-dev.txt` and in the ingestion notebook's `%pip` line (with pydicom 3.0.2, matching the app). pypdf is used only by the local pipeline, the ingestion notebook and the consistency audit; the deployed app does not install or import it | 1 remaining: the same oauthlib 3.3.1 residual |
 | npm, runtime packages (`npm audit --omit=dev`) | react-router-dom 6.28: 3 high, then 2 moderate on 6.30.6 | Upgraded to react-router-dom 7.18.4 (same component API); all routes and navigation re-tested on the deployed app | **0 runtime vulnerabilities** |
-| npm, including build/dev tooling (`npm audit`) | — | Not changed (see below) | 10 findings (7 high, 3 moderate), all in build/dev tooling |
+| npm, including build/dev tooling (`npm audit`) | 10 findings (7 high, 3 moderate) | Non-major updates: postcss 8.4.49 → 8.5.28 (fixes all four PostCSS advisories) and vite 5.4.11 → 5.4.21 (latest 5.x; fixes 9 of its 12 advisories). No application changes; the production bundle is byte-identical | 9 findings (6 high, 3 moderate), all in build/dev tooling; every remaining fix is a major upgrade |
 
 **Accepted residual: oauthlib 3.3.1 (PYSEC-2026-4114).**
 
@@ -83,18 +83,19 @@ The scan found no SSN-like numbers, phone numbers or email addresses in the data
 
 **pypdf 6.19.0 and the committed data.** The committed processed data and the deployed Delta tables were produced with pypdf 5.1.0. Re-running `pipeline/cliniq_pipeline.py` with 6.19.0 changes only whitespace in the extracted text (24 of 27 pages gain leading spaces on some lines). After whitespace normalisation the text is identical, and all 166 tests and the 14 consistency checks pass with 6.19.0. The data has not been regenerated or redeployed; the next ingestion run will pick up the new extractor.
 
-**Build/dev-only npm findings (not shipped).** The full `npm audit`, including development dependencies, reports 10 findings. None of these packages is present in the deployed app, which serves only the prebuilt static bundle in `frontend/dist`:
+**Build/dev-only npm findings (not shipped).** The full `npm audit`, including development dependencies, reports 9 findings. None of these packages is present in the deployed app, which serves only the prebuilt static bundle in `frontend/dist`:
 
-| Package | Severity | Path | Available fix |
-|---|---|---|---|
-| tailwindcss 3.4.16 | high | direct (CSS build) | 4.3.3 only (major) |
-| braces, chokidar, fast-glob, micromatch | high | via tailwindcss 3 | via tailwindcss 4 (major) |
-| postcss-nested, postcss-selector-parser | moderate | via tailwindcss 3 | via tailwindcss 4 (major) |
-| postcss 8.4.49 | high | direct (CSS build) | 8.5.30 (non-major) |
-| vite 5.4.11 | high | direct (dev server and bundler) | 5.4.21 (non-major) |
-| esbuild | moderate | via vite (dev server) | via vite 5.4.21 |
+| Package | Severity | Path | Remaining advisories | Available fix |
+|---|---|---|---|---|
+| tailwindcss 3.4.16 | high | direct (CSS build) | via the dependencies below | 4.x only (major) |
+| braces, chokidar, fast-glob, micromatch | high | via tailwindcss 3 (file watching and globbing) | — | via tailwindcss 4 (major) |
+| postcss-nested, postcss-selector-parser | moderate | via tailwindcss 3 | — | via tailwindcss 4 (major) |
+| vite 5.4.21 | high | direct (dev server and bundler) | GHSA-4w7w-66w2-5vf9 (optimized-deps `.map` path traversal, dev server); GHSA-v6wh-96g9-6wx3 and GHSA-fx2h-pf6j-xcff (Windows-only dev-server issues) | 6.4.3+ (major) |
+| esbuild 0.21.5 | moderate | via vite (dev server) | GHSA-67mh-4wv8-2f99 (dev server readable by other websites) | via a vite major |
 
-A Tailwind 4 migration is a breaking change to the CSS build and has deliberately **not** been made without owner approval. The vite dev server is used only on a developer's machine and is never exposed by the deployed app.
+A Tailwind 4 migration and a Vite major upgrade are breaking changes to the build and have deliberately **not** been made without owner approval. The remaining vite and esbuild advisories affect only the local development server (`npm run dev`), which runs on a developer's machine and is never exposed by the deployed app; `vite build` output does not contain them.
+
+**Test client.** Starlette 1.8's `TestClient` warns when it falls back to `httpx`. The development requirements now include `httpx2` 2.13.1 (with its dependencies `httpcore2` 2.13.1 and `truststore` 0.10.5), which the test client uses instead, so the test run is warning-free. `httpx` 0.28.1 is kept for `tools/acceptance_http.py` and `tools/smoke_test.py`. None of these packages is installed in the deployed app.
 
 After the upgrades: 166 offline tests pass, the main app passes 24/24 HTTP acceptance checks, and in-app navigation was re-tested.
 
@@ -112,4 +113,4 @@ After the upgrades: 166 offline tests pass, the main app passes 24/24 HTTP accep
 - **Identity:** every commit's author and committer is `srini-venkataraman <332990115+srini-venkataraman@users.noreply.github.com>`.
 - **Attribution:** no AI co-author trailers, generated-by markers or assistant attribution in commit messages or files (scanned).
 - **Clean history:** the initial history was prepared locally as a single commit, with superseded local commits and objects pruned (`git fsck` reported no unreachable objects) before it was published. Later changes are new commits on top; the published commit is never amended or rewritten. Files excluded by `.gitignore` (`legacy/`, `data/source_dicom/`, `planning/`, build output) are verified ignored and absent from the commit.
-- **Verification of the follow-up commit:** 187 tracked files, 166 tests pass, consistency audit 14/14, frontend type-check and production build succeed, `npm audit --omit=dev` reports 0 runtime vulnerabilities (the full audit's 10 build/dev-only findings are listed in section 4), and `pip-audit` (app and development requirements) shows only the documented oauthlib residual.
+- **Verification of the latest follow-up commit (development dependencies only):** 187 tracked files, 166 tests pass with no warnings (including with deprecation warnings treated as errors), consistency audit 14/14, frontend type-check and production build succeed, `npm audit --omit=dev` reports 0 runtime vulnerabilities (the full audit's 9 build/dev-only findings are listed in section 4), and `pip-audit` (app and development requirements) shows only the documented oauthlib residual. Live HTTP acceptance against the running primary app `cliniq-nexus` (v5, source folder `app-v5`) on 15 Oct 2026 passed **24/24**.

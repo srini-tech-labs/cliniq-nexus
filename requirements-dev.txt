@@ -4,6 +4,9 @@ reportlab==4.2.5
 pypdf==6.19.0
 pytest==9.1.1
 httpx==0.28.1
+httpx2==2.13.1
+httpcore2==2.13.1
+truststore==0.10.5
 playwright==1.49.1
 pypdfium2==5.14.0
 imageio-ffmpeg==0.6.0
